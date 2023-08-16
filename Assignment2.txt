@@ -1,0 +1,73 @@
+sois@sois-VirtualBox:~$ jps
+30045 Jps
+
+sois@sois-VirtualBox:~$ start-dfs.sh && start-yarn.sh
+Starting namenodes on [localhost]
+Starting datanodes
+Starting secondary namenodes [sois-VirtualBox]
+Starting resourcemanager
+Starting nodemanagers
+
+sois@sois-VirtualBox:~$ jps
+30976 ResourceManager
+30306 NameNode
+30466 DataNode
+31142 NodeManager
+31496 Jps
+30683 SecondaryNameNode
+
+sois@sois-VirtualBox:~$ hdfs dfs -mkdir /user/test_dir
+
+sois@sois-VirtualBox:~$ hdfs dfs -ls /user/
+Found 2 items
+drwxr-xr-x   - sois supergroup          0 2021-01-15 16:26 /user/hive
+drwxr-xr-x   - sois supergroup          0 2023-08-16 14:43 /user/test_dir
+
+sois@sois-VirtualBox:~$ hdfs dfs -put /home/sois/Lab2.txt /user/test_dir
+2023-08-16 14:52:21,473 INFO sasl.SaslDataTransferClient: SASL encryption trust check: localHostTrusted = false, remoteHostTrusted = false
+sois@sois-VirtualBox:~$ hdfs dfs -ls /user/test_dir
+Found 1 items
+-rw-r--r--   1 sois supergroup         29 2023-08-16 14:52 /user/test_dir/Lab2.txt
+sois@sois-VirtualBox:~$ hdfs dfs -put t1.txt t2.txt /user/test_dir
+2023-08-16 15:00:02,150 INFO sasl.SaslDataTransferClient: SASL encryption trust check: localHostTrusted = false, remoteHostTrusted = false
+2023-08-16 15:00:02,387 INFO sasl.SaslDataTransferClient: SASL encryption trust check: localHostTrusted = false, remoteHostTrusted = false
+sois@sois-VirtualBox:~$ hdfs dfs -ls /user/test_dir
+Found 3 items
+-rw-r--r--   1 sois supergroup         29 2023-08-16 14:52 /user/test_dir/Lab2.txt
+-rw-r--r--   1 sois supergroup         31 2023-08-16 15:00 /user/test_dir/t1.txt
+-rw-r--r--   1 sois supergroup         36 2023-08-16 15:00 /user/test_dir/t2.txt
+sois@sois-VirtualBox:~$ hdfs dfs -cat /user/test_dir/t1.txt
+2023-08-16 15:06:08,626 INFO sasl.SaslDataTransferClient: SASL encryption trust check: localHostTrusted = false, remoteHostTrusted = false
+heloooooo
+kaifaa halak
+zaaain 
+sois@sois-VirtualBox:~$ hdfs dfs -get /user/test_dir/Lab2.txt /home/sois/Documents/
+2023-08-16 15:20:12,971 INFO sasl.SaslDataTransferClient: SASL encryption trust check: localHostTrusted = false, remoteHostTrusted = false
+sois@sois-VirtualBox:~$ hdfs dfs -put /home/sois/Desktop/sample1.txt /user/test_dir
+sois@sois-VirtualBox:~$ hdfs dfs -ls /user/test_dir
+Found 4 items
+-rw-r--r--   1 sois supergroup         29 2023-08-16 14:52 /user/test_dir/Lab2.txt
+-rw-r--r--   1 sois supergroup          0 2023-08-16 15:23 /user/test_dir/sample1.txt
+-rw-r--r--   1 sois supergroup         31 2023-08-16 15:00 /user/test_dir/t1.txt
+-rw-r--r--   1 sois supergroup         36 2023-08-16 15:00 /user/test_dir/t2.txt
+sois@sois-VirtualBox:~$ hdfs dfs -put /home/sois/Documents/sample2.txt /user/test_dir
+sois@sois-VirtualBox:~$ hdfs dfs -ls /user/test_dir
+Found 5 items
+-rw-r--r--   1 sois supergroup         29 2023-08-16 14:52 /user/test_dir/Lab2.txt
+-rw-r--r--   1 sois supergroup          0 2023-08-16 15:23 /user/test_dir/sample1.txt
+-rw-r--r--   1 sois supergroup          0 2023-08-16 15:24 /user/test_dir/sample2.txt
+-rw-r--r--   1 sois supergroup         31 2023-08-16 15:00 /user/test_dir/t1.txt
+-rw-r--r--   1 sois supergroup         36 2023-08-16 15:00 /user/test_dir/t2.txt
+sois@sois-VirtualBox:~$ hdfs dfs -cp /user/test_dir/t2.txt /user/test_dir/updated.txt
+2023-08-16 15:32:01,890 INFO sasl.SaslDataTransferClient: SASL encryption trust check: localHostTrusted = false, remoteHostTrusted = false
+2023-08-16 15:32:02,109 INFO sasl.SaslDataTransferClient: SASL encryption trust check: localHostTrusted = false, remoteHostTrusted = false
+sois@sois-VirtualBox:~$ hdfs dfs -cat /user/test_dir/updated.txt
+2023-08-16 15:32:47,737 INFO sasl.SaslDataTransferClient: SASL encryption trust check: localHostTrusted = false, remoteHostTrusted = false
+guten tag
+ich heise imaad
+wie giets
+sois@sois-VirtualBox:~$ hdfs dfs -mv /user/test_dir/t2.txt /user/test_dir/final.txt
+sois@sois-VirtualBox:~$ hdfs dfs -ls /user/test_dir/t1.txt
+-rw-r--r--   1 sois supergroup         31 2023-08-16 15:00 /user/test_dir/t1.txt
+sois@sois-VirtualBox:~$ hdfs dfs -rm /user/test_dir/t1.txt
+Deleted /user/test_dir/t1.txt
